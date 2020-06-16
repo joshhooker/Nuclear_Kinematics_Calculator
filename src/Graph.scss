@@ -1,0 +1,63 @@
+.graph-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    height: 700px;
+    width: 1024px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    font-size: 14px;
+    padding-top: 10px;
+
+    .header-wrapper {
+        position: relative;
+
+        .graph-title {
+            text-align: center;
+            margin: 0;
+        }
+
+        .graph-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin-right: 20px;
+            color: #444444;
+            background: #F3F3F3;
+            border: 1px #DADADA solid;
+            padding: 2px 20px;
+            border-radius: 2px;
+            font-weight: bold;
+            font-size: 12px;
+            outline: none;
+
+            &:hover {
+                border: 1px #C6C6C6 solid;
+                box-shadow: 1px 1px 1px #EAEAEA;
+                color: #333333;
+                background: #F7F7F7;
+            }
+        }
+    }
+
+    .graph {
+        position: relative;
+        padding: 0 25px 0 25px;
+
+        .rv-xy-plot {
+            position: absolute;
+            top: 0;
+
+            &:nth-child(1) {
+                z-index: 1;
+            }
+
+            .rv-hint {
+                z-index: 1;
+            }
+        }
+
+        .rv-discrete-color-legend {
+            margin: auto
+        }
+    }
+}

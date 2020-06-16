@@ -1,0 +1,18 @@
+.form-display-wrapper {
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .form-title {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        text-align: center;
+        color: #444;
+    }
+}
