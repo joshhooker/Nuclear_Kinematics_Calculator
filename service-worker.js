@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Nuclear_Kinematics_Calculator/precache-manifest.985ce4fc6c7cd1e52d62d40cc677a225.js"
+  "/Nuclear_Kinematics_Calculator/precache-manifest.cf8f3bda30966bdfdf2e4d9937d8f321.js"
 );
 
 self.addEventListener('message', (event) => {

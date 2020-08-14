@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Nuclear_Kinematics_Calculator/static/css/main.4e27fed4.chunk.css",
-    "main.js": "/Nuclear_Kinematics_Calculator/static/js/main.1962541b.chunk.js",
-    "main.js.map": "/Nuclear_Kinematics_Calculator/static/js/main.1962541b.chunk.js.map",
+    "main.js": "/Nuclear_Kinematics_Calculator/static/js/main.057e040c.chunk.js",
+    "main.js.map": "/Nuclear_Kinematics_Calculator/static/js/main.057e040c.chunk.js.map",
     "runtime-main.js": "/Nuclear_Kinematics_Calculator/static/js/runtime-main.2802df4c.js",
     "runtime-main.js.map": "/Nuclear_Kinematics_Calculator/static/js/runtime-main.2802df4c.js.map",
     "static/js/2.09f4a9b2.chunk.js": "/Nuclear_Kinematics_Calculator/static/js/2.09f4a9b2.chunk.js",
     "static/js/2.09f4a9b2.chunk.js.map": "/Nuclear_Kinematics_Calculator/static/js/2.09f4a9b2.chunk.js.map",
     "index.html": "/Nuclear_Kinematics_Calculator/index.html",
-    "precache-manifest.985ce4fc6c7cd1e52d62d40cc677a225.js": "/Nuclear_Kinematics_Calculator/precache-manifest.985ce4fc6c7cd1e52d62d40cc677a225.js",
+    "precache-manifest.cf8f3bda30966bdfdf2e4d9937d8f321.js": "/Nuclear_Kinematics_Calculator/precache-manifest.cf8f3bda30966bdfdf2e4d9937d8f321.js",
     "service-worker.js": "/Nuclear_Kinematics_Calculator/service-worker.js",
     "static/css/main.4e27fed4.chunk.css.map": "/Nuclear_Kinematics_Calculator/static/css/main.4e27fed4.chunk.css.map",
     "static/js/2.09f4a9b2.chunk.js.LICENSE.txt": "/Nuclear_Kinematics_Calculator/static/js/2.09f4a9b2.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.2802df4c.js",
     "static/js/2.09f4a9b2.chunk.js",
     "static/css/main.4e27fed4.chunk.css",
-    "static/js/main.1962541b.chunk.js"
+    "static/js/main.057e040c.chunk.js"
   ]
 }

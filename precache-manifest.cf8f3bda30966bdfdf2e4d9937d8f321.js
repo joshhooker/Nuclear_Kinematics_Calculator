@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cf8eb489f3a47027942191d5437ae091",
+    "revision": "46129d6bc3628398cd9629fc2dba1ade",
     "url": "/Nuclear_Kinematics_Calculator/index.html"
   },
   {
-    "revision": "ed34fa0a2079e40d6ea2",
+    "revision": "6dd5bf5dc3bbe2e4e7f2",
     "url": "/Nuclear_Kinematics_Calculator/static/css/main.4e27fed4.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Nuclear_Kinematics_Calculator/static/js/2.09f4a9b2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ed34fa0a2079e40d6ea2",
-    "url": "/Nuclear_Kinematics_Calculator/static/js/main.1962541b.chunk.js"
+    "revision": "6dd5bf5dc3bbe2e4e7f2",
+    "url": "/Nuclear_Kinematics_Calculator/static/js/main.057e040c.chunk.js"
   },
   {
     "revision": "e8c408fad45846118e1d",
