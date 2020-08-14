@@ -148,6 +148,7 @@ const Data = {
         "light_angle_lab_heavy_angle_lab_data": "",
         "kinematic_columns": "",
         "kinematic_table": "",
+        "good_table": "",
     },
     atomic_mass_unit: 931.49410242,
     c: 299792458

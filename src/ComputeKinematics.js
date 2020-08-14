@@ -3,12 +3,24 @@ import Big from "big.js";
 export function getKinematics(beam, target, light, heavy, beam_energy) {
     if (!(beam && target && light && heavy)) { return false; }
 
+    if (!(beam_energy)) { return false; }
+
+    if (isNaN(beam_energy)) { return false; }
+
     const reaction_notation = target.simple_notation.concat('(', beam.simple_notation, ', ',
         light.simple_notation, ')', heavy.simple_notation);
-    const cm_energy = computeCMEnergy(beam, target, beam_energy);
+    
+        const cm_energy = computeCMEnergy(beam, target, beam_energy);
+    if (!cm_energy) { return false; }
+
     const gs_q_value = computeGSQValue(beam, target, light, heavy);
+    if (!gs_q_value) { return false; }
+
     const q_value = computeQValue(beam, target, light, heavy);
+    if (!q_value) { return false; }
+
     const kinematicFactors = computeFactors(beam, target, light, heavy, beam_energy, q_value);
+    if (!kinematicFactors) { return false; }
 
     return {
         "reaction_notation": reaction_notation,
@@ -27,6 +39,7 @@ export function getKinematics(beam, target, light, heavy, beam_energy) {
         "light_angle_lab_heavy_angle_lab_data": kinematicFactors.light_angle_lab_heavy_angle_lab_data,
         "kinematic_columns": kinematicFactors.kinematic_columns,
         "kinematic_table": kinematicFactors.kinematic_table,
+        "good_table": 1,
     }
 }
 
