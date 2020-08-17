@@ -94,276 +94,94 @@ class Content extends React.Component {
             beam_energy: beam_energy,
         }
 
-        if (kinematics.good_table === 1) {
-            return (
-                <div className="component-content">
-                    <div className="content-container">
-                        <Form
-                            className="reaction-params-form const-width m-r-15 m-b-15"
-                            FormRow={Data.InputReactionParamsRow}
-                            title="Incoming"
-                            valueList={input_reaction_params}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="reaction-params-form const-width m-r-15 m-b-15"
-                            FormRow={Data.OutputReactionParamsRow}
-                            title="Outgoing"
-                            valueList={output_reaction_params}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="reaction-params-form const-width m-b-15"
-                            FormRow={Data.ReactionParamsRow}
-                            title="Beam Properties"
-                            valueList={reaction_params}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="atom-form atom-width m-r-15 m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Beam Atom"
-                            valueList={beam}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="atom-form atom-width m-r-15 m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Target Atom"
-                            valueList={target}
-                        />
-                        <Form
-                            className="atom-form atom-width m-r-15 m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Light Recoil Atom"
-                            valueList={light}
-                        />
-                        <Form
-                            className="atom-form atom-width m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Heavy Recoil Atom"
-                            valueList={heavy}
-                        />
-                        {
-                        /*
-                        <Form
-                            className="reaction-form full-width m-b-15"
-                            title="Reaction"
-                            FormRow={Data.ReactionDescriptionRow}
-                            valueList={kinematics}
-                        />
-                        */
+        return (
+            <div className="component-content">
+                <div className="content-container">
+                    <Form
+                        className="reaction-params-form const-width m-r-15 m-b-15"
+                        FormRow={Data.InputReactionParamsRow}
+                        title="Incoming"
+                        valueList={input_reaction_params}
+                        fieldOnChange={this.inputOnChange}
+                    />
+                    <Form
+                        className="reaction-params-form const-width m-r-15 m-b-15"
+                        FormRow={Data.OutputReactionParamsRow}
+                        title="Outgoing"
+                        valueList={output_reaction_params}
+                        fieldOnChange={this.inputOnChange}
+                    />
+                    <Form
+                        className="reaction-params-form const-width m-b-15"
+                        FormRow={Data.ReactionParamsRow}
+                        title="Beam Properties"
+                        valueList={reaction_params}
+                        fieldOnChange={this.inputOnChange}
+                    />
+                    <Form
+                        className="atom-form atom-width m-r-15 m-b-15"
+                        FormRow={Data.AtomRow}
+                        title="Beam Atom"
+                        valueList={beam}
+                        fieldOnChange={this.inputOnChange}
+                    />
+                    <Form
+                        className="atom-form atom-width m-r-15 m-b-15"
+                        FormRow={Data.AtomRow}
+                        title="Target Atom"
+                        valueList={target}
+                    />
+                    <Form
+                        className="atom-form atom-width m-r-15 m-b-15"
+                        FormRow={Data.AtomRow}
+                        title="Light Recoil Atom"
+                        valueList={light}
+                    />
+                    <Form
+                        className="atom-form atom-width m-b-15"
+                        FormRow={Data.AtomRow}
+                        title="Heavy Recoil Atom"
+                        valueList={heavy}
+                    />
+                    <FormDisplay
+                        className="kinematics-form full-width m-b-15"
+                        FormRowList={Data.KinematicsRow}
+                        title="Kinematics"
+                        valueList={kinematics}
+                    />
+                    <Graph
+                        title="Lab Angle vs. Lab Energy"
+                        data_light={kinematics.light_angle_lab_energy_lab_data}
+                        data_heavy={kinematics.heavy_angle_lab_energy_lab_data}
+                        x_label="Angle (deg)"
+                        y_label="Energy/u (MeV)"
+                        use_items={true}
+                        use_heavy_item={true}
+                    />
+                    <Graph
+                        title="Lab Angle"
+                        data_light={kinematics.light_angle_lab_heavy_angle_lab_data}
+                        x_label="Heavy Angle (deg)"
+                        y_label="Light Angle (deg)"
+                        use_items={false}
+                    />
+                    {(() => {
+                        if (kinematics === Data.DefaultKinematics) {
+                        return 
+                        } else {
+                        return (
+                            <DataTable
+                                columns={kinematics.kinematic_columns}
+                                data={kinematics.kinematic_table}
+                                fixedHeader
+                                fixedHeaderScrollHeight="1000px"
+                            />
+                        )
                         }
-                        <FormDisplay
-                            className="kinematics-form full-width m-b-15"
-                            FormRowList={Data.KinematicsRow}
-                            title="Kinematics"
-                            valueList={kinematics}
-                        />
-                        <Graph
-                            title="Lab Angle vs. Lab Energy"
-                            data_light={kinematics.light_angle_lab_energy_lab_data}
-                            data_heavy={kinematics.heavy_angle_lab_energy_lab_data}
-                            x_label="Angle (deg)"
-                            y_label="Energy/u (MeV)"
-                            use_items={true}
-                            use_heavy_item={true}
-                        />
-                        <Graph
-                            title="Lab Angle"
-                            data_light={kinematics.light_angle_lab_heavy_angle_lab_data}
-                            x_label="Heavy Angle (deg)"
-                            y_label="Light Angle (deg)"
-                            use_items={false}
-                        />
-                        <DataTable
-                            columns={kinematics.kinematic_columns}
-                            data={kinematics.kinematic_table}
-                            fixedHeader
-                            fixedHeaderScrollHeight="1000px"
-                        />
-                    </div>
+                    })()}
                 </div>
-            );
-        }
-
-        else if (kinematics.good_table !== 1) {
-            return (
-                <div className="component-content">
-                    <div className="content-container">
-                        <Form
-                            className="reaction-params-form const-width m-r-15 m-b-15"
-                            FormRow={Data.InputReactionParamsRow}
-                            title="Incoming"
-                            valueList={input_reaction_params}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="reaction-params-form const-width m-r-15 m-b-15"
-                            FormRow={Data.OutputReactionParamsRow}
-                            title="Outgoing"
-                            valueList={output_reaction_params}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="reaction-params-form const-width m-b-15"
-                            FormRow={Data.ReactionParamsRow}
-                            title="Beam Properties"
-                            valueList={reaction_params}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="atom-form atom-width m-r-15 m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Beam Atom"
-                            valueList={beam}
-                            fieldOnChange={this.inputOnChange}
-                        />
-                        <Form
-                            className="atom-form atom-width m-r-15 m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Target Atom"
-                            valueList={target}
-                        />
-                        <Form
-                            className="atom-form atom-width m-r-15 m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Light Recoil Atom"
-                            valueList={light}
-                        />
-                        <Form
-                            className="atom-form atom-width m-b-15"
-                            FormRow={Data.AtomRow}
-                            title="Heavy Recoil Atom"
-                            valueList={heavy}
-                        />
-                        {
-                        /*
-                        <Form
-                            className="reaction-form full-width m-b-15"
-                            title="Reaction"
-                            FormRow={Data.ReactionDescriptionRow}
-                            valueList={kinematics}
-                        />
-                        */
-                        }
-                        <FormDisplay
-                            className="kinematics-form full-width m-b-15"
-                            FormRowList={Data.KinematicsRow}
-                            title="Kinematics"
-                            valueList={kinematics}
-                        />
-                        <Graph
-                            title="Lab Angle vs. Lab Energy"
-                            data_light={kinematics.light_angle_lab_energy_lab_data}
-                            data_heavy={kinematics.heavy_angle_lab_energy_lab_data}
-                            x_label="Angle (deg)"
-                            y_label="Energy/u (MeV)"
-                            use_items={true}
-                            use_heavy_item={true}
-                        />
-                        <Graph
-                            title="Lab Angle"
-                            data_light={kinematics.light_angle_lab_heavy_angle_lab_data}
-                            x_label="Heavy Angle (deg)"
-                            y_label="Light Angle (deg)"
-                            use_items={false}
-                        />
-                    </div>
-                </div>
-            );
-        }
-
-        // return (
-        //     <div className="component-content">
-        //         <div className="content-container">
-        //             <Form
-        //                 className="reaction-params-form const-width m-r-15 m-b-15"
-        //                 FormRow={Data.InputReactionParamsRow}
-        //                 title="Incoming"
-        //                 valueList={input_reaction_params}
-        //                 fieldOnChange={this.inputOnChange}
-        //             />
-        //             <Form
-        //                 className="reaction-params-form const-width m-r-15 m-b-15"
-        //                 FormRow={Data.OutputReactionParamsRow}
-        //                 title="Outgoing"
-        //                 valueList={output_reaction_params}
-        //                 fieldOnChange={this.inputOnChange}
-        //             />
-        //             <Form
-        //                 className="reaction-params-form const-width m-b-15"
-        //                 FormRow={Data.ReactionParamsRow}
-        //                 title="Beam Properties"
-        //                 valueList={reaction_params}
-        //                 fieldOnChange={this.inputOnChange}
-        //             />
-        //             <Form
-        //                 className="atom-form atom-width m-r-15 m-b-15"
-        //                 FormRow={Data.AtomRow}
-        //                 title="Beam Atom"
-        //                 valueList={beam}
-        //                 fieldOnChange={this.inputOnChange}
-        //             />
-        //             <Form
-        //                 className="atom-form atom-width m-r-15 m-b-15"
-        //                 FormRow={Data.AtomRow}
-        //                 title="Target Atom"
-        //                 valueList={target}
-        //             />
-        //             <Form
-        //                 className="atom-form atom-width m-r-15 m-b-15"
-        //                 FormRow={Data.AtomRow}
-        //                 title="Light Recoil Atom"
-        //                 valueList={light}
-        //             />
-        //             <Form
-        //                 className="atom-form atom-width m-b-15"
-        //                 FormRow={Data.AtomRow}
-        //                 title="Heavy Recoil Atom"
-        //                 valueList={heavy}
-        //             />
-        //             {
-        //             /*
-        //             <Form
-        //                 className="reaction-form full-width m-b-15"
-        //                 title="Reaction"
-        //                 FormRow={Data.ReactionDescriptionRow}
-        //                 valueList={kinematics}
-        //             />
-        //             */
-        //             }
-        //             <FormDisplay
-        //                 className="kinematics-form full-width m-b-15"
-        //                 FormRowList={Data.KinematicsRow}
-        //                 title="Kinematics"
-        //                 valueList={kinematics}
-        //             />
-        //             <Graph
-        //                 title="Lab Angle vs. Lab Energy"
-        //                 data_light={kinematics.light_angle_lab_energy_lab_data}
-        //                 data_heavy={kinematics.heavy_angle_lab_energy_lab_data}
-        //                 x_label="Angle (deg)"
-        //                 y_label="Energy/u (MeV)"
-        //                 use_items={true}
-        //                 use_heavy_item={true}
-        //             />
-        //             <Graph
-        //                 title="Lab Angle"
-        //                 data_light={kinematics.light_angle_lab_heavy_angle_lab_data}
-        //                 x_label="Heavy Angle (deg)"
-        //                 y_label="Light Angle (deg)"
-        //                 use_items={false}
-        //             />
-        //             <DataTable
-        //                 columns={kinematics.kinematic_columns}
-        //                 data={kinematics.kinematic_table}
-        //                 fixedHeader
-        //                 fixedHeaderScrollHeight="1000px"
-        //             />
-        //         </div>
-        //     </div>
-        // );
+            </div>
+        );
     }
 }
 export default Content;
