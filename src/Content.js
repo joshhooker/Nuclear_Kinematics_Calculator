@@ -96,6 +96,12 @@ class Content extends React.Component {
 
         return (
             <div className="component-content">
+                <div class="centered">
+                    Updates:
+                </div>
+                <div class="centered">
+                        v0.1.1 (2020/08/17) - Table now shows only if reaction is valid
+                </div>
                 <div className="content-container">
                     <Form
                         className="reaction-params-form const-width m-r-15 m-b-15"

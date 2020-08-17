@@ -62,3 +62,10 @@ input[type=search] {
 .m-b-20 {
     margin-bottom: 20px;
 }
+
+.centered {
+    height: 4vh; /* Magic here */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

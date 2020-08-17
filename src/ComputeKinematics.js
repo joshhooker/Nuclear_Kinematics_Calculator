@@ -38,8 +38,7 @@ export function getKinematics(beam, target, light, heavy, beam_energy) {
         "heavy_angle_lab_energy_lab_data": kinematicFactors.heavy_angle_lab_energy_lab_data,
         "light_angle_lab_heavy_angle_lab_data": kinematicFactors.light_angle_lab_heavy_angle_lab_data,
         "kinematic_columns": kinematicFactors.kinematic_columns,
-        "kinematic_table": kinematicFactors.kinematic_table,
-        "good_table": 1,
+        "kinematic_table": kinematicFactors.kinematic_table
     }
 }
 

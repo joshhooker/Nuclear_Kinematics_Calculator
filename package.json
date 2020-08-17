@@ -1,6 +1,6 @@
 {
   "name": "nuclear_kinematics_calculator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "homepage": "http://joshhooker.github.io/Nuclear_Kinematics_Calculator",
   "dependencies": {
