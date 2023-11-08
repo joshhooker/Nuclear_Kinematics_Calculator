@@ -14,10 +14,7 @@ function getElementsObject() {
 }
 
 function getIsotopeObject(mass_number, atomic_number, ex) {
-    console.log(atomic_number, mass_number);
     const atom = isotopes[atomic_number];
-
-    console.log(atom);
 
     if (!atom) {
         return false;

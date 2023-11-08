@@ -39,7 +39,7 @@ class FormField extends React.Component {
         super(props);
         this.state = {
             // determine if the column has value
-            active: this.props.value ? true : false
+            active: !!this.props.value
         };
     }
 

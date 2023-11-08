@@ -1,7 +1,7 @@
-import { getIsotopeObject } from "./Isotopes";
+import {getIsotopeObject} from "./Isotopes";
 
 export function getIsotope(mass_number, atomic_number, ex) {
-    if (!(mass_number && atomic_number)) { return false; }
+    if (!(mass_number && atomic_number) && (atomic_number > 0)) { return false; }
 
     return getIsotopeObject(mass_number, atomic_number, ex);
 }
@@ -20,6 +20,8 @@ export function getHeavyRecoil(beam, target, light, heavy_ex) {
     let heavy_a = beam_a + target_a - light_a;
     let heavy_z = beam_z + target_z - light_z;
 
-    const heavy = getIsotope(heavy_a, heavy_z, heavy_ex);
-    return heavy;
+    if (heavy_a < 0) { return false; }
+    if (heavy_z < 0) { return false; }
+
+    return getIsotope(heavy_a, heavy_z, heavy_ex);
 }
