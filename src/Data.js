@@ -100,7 +100,6 @@ const Data = {
         {
             label: "Mass (amu)",
             name: "mass_amu",
-            unit: "text",
             disabled: true
         },
         {

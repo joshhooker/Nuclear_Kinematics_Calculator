@@ -1,7 +1,6 @@
-
 import React from "react";
 
-import DataTable from 'react-data-table-component';
+import SimpleDataTable from './SimpleDataTable';
 
 import { computeResult } from "./Compute";
 import Data from "./Data";
@@ -96,11 +95,14 @@ class Content extends React.Component {
 
         return (
             <div className="component-content">
-                <div class="centered">
+                <div className="centered">
                     Updates:
                 </div>
-                <div class="centered">
-                        v0.1.1 (2020/08/17) - Table now shows only if reaction is valid
+                <div className="centered">
+                    v0.2 (2026/01/24) - Moved the React 19
+                </div>
+                <div className="centered">
+                    v0.1.1 (2020/08/17) - Table now shows only if reaction is valid
                 </div>
                 <div className="content-container">
                     <Form
@@ -173,16 +175,16 @@ class Content extends React.Component {
                     />
                     {(() => {
                         if (kinematics === Data.DefaultKinematics) {
-                        return 
+                            return null;
                         } else {
-                        return (
-                            <DataTable
-                                columns={kinematics.kinematic_columns}
-                                data={kinematics.kinematic_table}
-                                fixedHeader
-                                fixedHeaderScrollHeight="1000px"
-                            />
-                        )
+                            return (
+                                <SimpleDataTable
+                                    columns={kinematics.kinematic_columns}
+                                    data={kinematics.kinematic_table}
+                                    fixedHeader
+                                    fixedHeaderScrollHeight="1000px"
+                                />
+                            )
                         }
                     })()}
                 </div>

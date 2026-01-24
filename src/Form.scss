@@ -5,11 +5,11 @@
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     font-size: 14px;
     padding-top: 10px;
-
+    
     .form-title {
         text-align: center;
     }
-
+    
     .field-container {
         position: relative;
         height: 55px;
@@ -17,19 +17,19 @@
         border-bottom: 1px solid #f0f0f0;
         display: flex;
         justify-content: space-between;
-
+        
         &.active {
             .field {
                 .field-label {
                     font-size: 12px;
-                    height: 20x;
+                    height: 20px;
                     line-height: 20px;
-
+                    
                     span {
                         font-size: 14px !important;
                         font-family: 'Times New Roman', Times, serif;
                     }
-
+                    
                     &::after {
                         width: 8px;
                         height: 8px;
@@ -37,7 +37,7 @@
                 }
             }
         }
-
+        
         &.input {
             .field {
                 .field-label {
@@ -47,40 +47,55 @@
                 }
             }
         }
-
+        
         &.disabled {
-
             .field {
+                position: relative;
+                
                 .field-box {
                     cursor: not-allowed;
                     color: #444;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    
+                    label {
+                        display: flex;
+                        align-items: center;
+                    }
                 }
-
+                
                 .field-label {
                     color: #444;
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 12px;
+                    line-height: 1;
                 }
             }
         }
-
+        
         &.error {
             .field {
                 .field-label {
                     color: red;
-
+                    
                     &::after {
                         background: red;
                     }
                 }
             }
         }
-
+        
         .field {
             margin-left: 20px;
             margin-right: 20px;
             height: 100%;
             flex: auto;
             display: flex;
-
+            
             .field-box {
                 flex: auto;
                 font-size: 16px;
@@ -90,23 +105,23 @@
                 height: 100%;
                 border: 0;
             }
-
+            
             .unit-label {
                 color: #007cb2;
                 margin: 0 0 0 10px;
-
+                
                 span {
                     font-size: 14px !important;
                     font-family: 'Times New Roman', Times, serif;
                 }
             }
-
+            
             .field-label {
                 color: darkslateblue;
                 position: absolute;
                 margin-bottom: 0;
                 transition: all .2s ease;
-
+                
                 &::after {
                     content: "\A";
                     margin-left: 5px;
@@ -117,12 +132,39 @@
                     display: none;
                     transition: all .2s ease;
                 }
-
+                
                 span {
                     font-size: 16px !important;
                     font-family: 'Times New Roman', Times, serif;
                 }
             }
         }
+    }
+}
+
+.physics-notation {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    display: inline-block;
+    position: relative;
+    line-height: 1.5;
+    white-space: nowrap;
+    
+    sup {
+        font-size: 0.7em;
+        vertical-align: super;
+        line-height: 0;
+        margin-left: 1px;
+    }
+    
+    sub {
+        font-size: 0.7em;
+        vertical-align: sub;
+        line-height: 0;
+        margin-right: 2px;
+    }
+    
+    &.reaction {
+        font-size: 16px;
     }
 }

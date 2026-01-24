@@ -1,5 +1,4 @@
 import React from "react";
-import MathJax from "react-mathjax2";
 
 import "./Form.scss";
 
@@ -33,6 +32,49 @@ const FormList = (props) => {
         })
     )
 }
+
+const PhysicsNotation = ({ value }) => {
+    if (!value) return null;
+    
+    let cleanValue = String(value);
+    
+    const fullMatch = cleanValue.match(/text\(\)_(\d+)\^(\d+)text\(([A-Za-z]+)\)/);
+    if (fullMatch) {
+        const [, atomicNum, massNum, symbol] = fullMatch;
+        return (
+            <span className="physics-notation">
+                <sup>{massNum}</sup>
+                <sub>{atomicNum}</sub>
+                {symbol}
+            </span>
+        );
+    }
+    
+    const simpleMatch = cleanValue.match(/text\(\)\^(\d+)text\(([A-Za-z]+)\)/);
+    if (simpleMatch) {
+        const [, massNum, symbol] = simpleMatch;
+        return (
+            <span className="physics-notation">
+                <sup>{massNum}</sup>
+                {symbol}
+            </span>
+        );
+    }
+    
+    const reactionMatch = cleanValue.match(/text\(\)\^(\d+)text\(([A-Za-z]+)\)\(text\(\)\^(\d+)text\(([A-Za-z]+)\),\s*text\(\)\^(\d+)text\(([A-Za-z]+)\)\)text\(\)\^(\d+)text\(([A-Za-z]+)\)/);
+    if (reactionMatch) {
+        const [, tA, tSym, bA, bSym, lA, lSym, hA, hSym] = reactionMatch;
+        return (
+            <span className="physics-notation reaction">
+                <span><sup>{tA}</sup>{tSym}</span>
+                (<span><sup>{bA}</sup>{bSym}</span>, <span><sup>{lA}</sup>{lSym}</span>)
+                <span><sup>{hA}</sup>{hSym}</span>
+            </span>
+        );
+    }
+    
+    return <span>{cleanValue}</span>;
+};
 
 class FormField extends React.Component {
     constructor(props) {
@@ -100,11 +142,9 @@ class FormField extends React.Component {
                 <div className="field">
                     {
                         (name === "physics_notation" || name === "simple_notation" ||  name === "reaction_notation") ?
-                            // Use MathJax for physics notation of atoms
+                            // Use PhysicsNotation component for physics notation of atoms
                             <label className="field-box">
-                                <MathJax.Context input='ascii'>
-                                    <MathJax.Node>{value}</MathJax.Node>
-                                </MathJax.Context>
+                                <PhysicsNotation value={value} />
                             </label>
                             :
                             <input className="field-box"
@@ -120,9 +160,7 @@ class FormField extends React.Component {
                     {
                         unit &&
                         <label className="unit-label">
-                            <MathJax.Context input='ascii'>
-                                <MathJax.Node>{unit}</MathJax.Node>
-                            </MathJax.Context>
+                            {unit}
                         </label>
                     }
                     {

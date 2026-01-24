@@ -15,7 +15,7 @@ export function getKinematics(beam, target, light, heavy, beam_energy) {
     const reaction_notation = target.simple_notation.concat('(', beam.simple_notation, ', ',
         light.simple_notation, ')', heavy.simple_notation);
     
-        const cm_energy = computeCMEnergy(beam, target, beam_energy);
+    const cm_energy = computeCMEnergy(beam, target, beam_energy);
     if (!cm_energy) { return false; }
 
     const gs_q_value = computeGSQValue(beam, target, light, heavy);
@@ -24,7 +24,7 @@ export function getKinematics(beam, target, light, heavy, beam_energy) {
     const q_value = computeQValue(beam, target, light, heavy);
     if (!q_value) { return false; }
 
-    if (cm_energy + q_value < 0) { return false; }
+    if (cm_energy.plus(q_value).toNumber() < 0) { return false; }
 
     const kinematicFactors = computeFactors(beam, target, light, heavy, beam_energy, q_value);
     if (!kinematicFactors) { return false; }
@@ -100,23 +100,23 @@ export function computeFactors(beam, target, light, heavy, beam_energy, q_value)
     const b_factor = beam_mass.times(light_mass).times(beam_energy_big)
         .div(mass_factor.times(total_energy_big));
     
-    const c_factor = target_mass.times(light_mass).times(Decimal(1.)
+    const c_factor = target_mass.times(light_mass).times(new Decimal(1)
         .plus(beam_mass.times(q_value_big).div(target_mass
         .times(total_energy_big)))).div(mass_factor);
 
-    const d_factor = target_mass.times(heavy_mass).times(Decimal(1.)
+    const d_factor = target_mass.times(heavy_mass).times(new Decimal(1)
         .plus(beam_mass.times(q_value_big).div(target_mass
         .times(total_energy_big)))).div(mass_factor);
 
-    if (a_factor <= 0) { return false; }
-    if (b_factor <= 0) { return false; }
-    if (c_factor <= 0) { return false; }
-    if (d_factor <= 0) { return false; }
+    if (a_factor.toNumber() <= 0) { return false; }
+    if (b_factor.toNumber() <= 0) { return false; }
+    if (c_factor.toNumber() <= 0) { return false; }
+    if (d_factor.toNumber() <= 0) { return false; }
 
     let light_max_angle;
 
-    if (b_factor > d_factor) {
-        light_max_angle = Math.asin(Math.sqrt(d_factor/b_factor));
+    if (b_factor.toNumber() > d_factor.toNumber()) {
+        light_max_angle = Math.asin(Math.sqrt(d_factor.toNumber()/b_factor.toNumber()));
     }
     else {
         light_max_angle = Math.PI;
@@ -124,8 +124,8 @@ export function computeFactors(beam, target, light, heavy, beam_energy, q_value)
 
     let heavy_max_angle;
 
-    if (a_factor > c_factor) {
-        heavy_max_angle = Math.asin(Math.sqrt(c_factor/a_factor));
+    if (a_factor.toNumber() > c_factor.toNumber()) {
+        heavy_max_angle = Math.asin(Math.sqrt(c_factor.toNumber()/a_factor.toNumber()));
     }
     else {
         heavy_max_angle = Math.PI;
@@ -177,88 +177,88 @@ export function computeFactors(beam, target, light, heavy, beam_energy, q_value)
 
     let kinematic_table = []
 
-    // Calculate angle vs energy
+    // Calculate angle vs energy - Forward solution
 
     for (i = start; i < end; i++) {
         angle_deg = i / 10;
         angle_rad = angle_deg*3.14159265/180.;
 
         if (angle_rad <= light_max_angle) {
-            light_energy_lab = total_energy_big.times(b_factor).times(Math.pow(Math.cos(angle_rad) +
-                Math.sqrt(d_factor.div(b_factor).minus(Math.pow(Math.sin(angle_rad), 2.))), 2.))
+            const sqrt_term = Math.sqrt(d_factor.toNumber()/b_factor.toNumber() - Math.pow(Math.sin(angle_rad), 2.));
+            light_energy_lab = total_energy_big.times(b_factor).times(Math.pow(Math.cos(angle_rad) + sqrt_term, 2.));
 
-            light_energy_lab_2 = total_energy_big.times(b_factor).times(Math.pow(Math.cos(angle_rad + 0.001) +
-                Math.sqrt(d_factor.div(b_factor).minus(Math.pow(Math.sin(angle_rad + 0.001), 2.))), 2.))
+            const sqrt_term_2 = Math.sqrt(d_factor.toNumber()/b_factor.toNumber() - Math.pow(Math.sin(angle_rad + 0.001), 2.));
+            light_energy_lab_2 = total_energy_big.times(b_factor).times(Math.pow(Math.cos(angle_rad + 0.001) + sqrt_term_2, 2.));
 
-            if (light_energy_lab < 1e-8) continue;
+            if (light_energy_lab.toNumber() < 1e-8) continue;
 
             heavy_energy_lab = total_energy_big.minus(light_energy_lab);
 
-            val_1 = Math.sqrt(light_energy_lab.div(total_energy_big.times(d_factor)))*Math.sin(angle_rad);
-            val_2 = Math.sqrt(light_energy_lab_2.div(total_energy_big.times(d_factor)))*Math.sin(angle_rad + 0.001);
+            val_1 = Math.sqrt(light_energy_lab.toNumber()/(total_energy_big.toNumber()*d_factor.toNumber()))*Math.sin(angle_rad);
+            val_2 = Math.sqrt(light_energy_lab_2.toNumber()/(total_energy_big.toNumber()*d_factor.toNumber()))*Math.sin(angle_rad + 0.001);
 
             light_angle_cm_rad = (val_2 > val_1) ? Math.asin(val_1) : Math.PI - Math.asin(val_1);
             light_angle_cm_deg = light_angle_cm_rad*180./3.14159265;
 
-            heavy_angle_lab_rad = Math.asin(Math.sqrt(light_mass*light_energy_lab/(heavy_mass*heavy_energy_lab))*Math.sin(angle_rad));
+            heavy_angle_lab_rad = Math.asin(Math.sqrt(light_mass.toNumber()*light_energy_lab.toNumber()/(heavy_mass.toNumber()*heavy_energy_lab.toNumber()))*Math.sin(angle_rad));
             heavy_angle_lab_deg = heavy_angle_lab_rad*180./3.14159265;
 
             heavy_angle_cm_rad = Math.PI - light_angle_cm_rad;
             heavy_angle_cm_deg = heavy_angle_cm_rad*180./3.14159265;
 
             light_angle_cm_deg = Math.floor(light_angle_cm_deg*1000. + 0.5)/1000.;
-            light_energy_lab = Math.floor(light_energy_lab*1000. + 0.5)/1000.;
+            const light_energy_lab_value = Math.floor(light_energy_lab.toNumber()*1000. + 0.5)/1000.;
             heavy_angle_lab_deg = Math.floor(heavy_angle_lab_deg*1000. + 0.5)/1000.;
             heavy_angle_cm_deg = Math.floor(heavy_angle_cm_deg*1000. + 0.5)/1000.;
-            heavy_energy_lab = Math.floor(heavy_energy_lab*1000. + 0.5)/1000.;
+            const heavy_energy_lab_value = Math.floor(heavy_energy_lab.toNumber()*1000. + 0.5)/1000.;
 
-            light_angle_lab_energy_lab_data.push({x: angle_deg, y: light_energy_lab/light.mass_amu});
+            light_angle_lab_energy_lab_data.push({x: angle_deg, y: light_energy_lab_value/light.mass_amu.toNumber()});
 
             light_angle_lab_angle_cm_data.push({x: angle_deg, y: light_angle_cm_deg});
 
             light_angle_lab_heavy_angle_lab_data.push({x: heavy_angle_lab_deg, y: angle_deg})
 
             if (angle_deg % 1 === 0) {
-                kinematic_table.push({id: i + 1, lab_angle: angle_deg, cm_angle: light_angle_cm_deg, lab_energy: light_energy_lab,
-                    recoil_lab_angle: heavy_angle_lab_deg, recoil_cm_angle: heavy_angle_cm_deg, recoil_lab_energy: heavy_energy_lab})
+                kinematic_table.push({id: i + 1, lab_angle: angle_deg, cm_angle: light_angle_cm_deg, lab_energy: light_energy_lab_value,
+                    recoil_lab_angle: heavy_angle_lab_deg, recoil_cm_angle: heavy_angle_cm_deg, recoil_lab_energy: heavy_energy_lab_value})
             }
         }
 
         if (angle_rad <= heavy_max_angle) {
-            heavy_energy_lab = total_energy_big*a_factor*Math.pow((Math.cos(angle_rad) + Math.sqrt((c_factor/a_factor -
-                Math.sin(angle_rad)*Math.sin(angle_rad)))), 2.);
+            const sqrt_term = Math.sqrt(c_factor.toNumber()/a_factor.toNumber() - Math.pow(Math.sin(angle_rad), 2.));
+            heavy_energy_lab = total_energy_big.times(a_factor).times(Math.pow(Math.cos(angle_rad) + sqrt_term, 2.));
 
-            heavy_angle_lab_energy_lab_data.push({x: angle_deg, y: heavy_energy_lab/heavy.mass_amu})
+            heavy_angle_lab_energy_lab_data.push({x: angle_deg, y: heavy_energy_lab.toNumber()/heavy.mass_amu.toNumber()})
         }
     }
 
+    // Backward solution for light recoil (creates the loop)
     if (light_max_angle < Math.PI) {
-        for (i = end; i >= start; i--) {
-            angle_deg = i / 2.;
+        for (i = end - 1; i >= start; i--) {
+            angle_deg = i / 10.;
             angle_rad = angle_deg*3.14159265/180.;
     
             if (angle_rad <= light_max_angle) {
-                light_energy_lab = total_energy_big*b_factor*Math.pow((Math.cos(angle_rad) - Math.sqrt((d_factor/b_factor -
-                    Math.sin(angle_rad)*Math.sin(angle_rad)))), 2);
+                const sqrt_term = Math.sqrt(d_factor.toNumber()/b_factor.toNumber() - Math.pow(Math.sin(angle_rad), 2.));
+                light_energy_lab = total_energy_big.times(b_factor).times(Math.pow(Math.cos(angle_rad) - sqrt_term, 2.));
     
-                light_angle_lab_energy_lab_data.push({x: angle_deg, y: light_energy_lab/light.mass_amu})
+                light_angle_lab_energy_lab_data.push({x: angle_deg, y: light_energy_lab.toNumber()/light.mass_amu.toNumber()})
             }
-    
         }
     }
     
+    // Backward solution for heavy recoil (creates the loop)
     if (heavy_max_angle < Math.PI) {
-        for (i = end; i >= start; i--) {
-            angle_deg = i / 2.;
+        for (i = end - 1; i >= start; i--) {
+            angle_deg = i / 10.;
             angle_rad = angle_deg*3.14159265/180.;
     
             if (angle_rad <= heavy_max_angle) {
-                heavy_energy_lab = total_energy_big*a_factor*Math.pow((Math.cos(angle_rad) - Math.sqrt((c_factor/a_factor -
-                    Math.sin(angle_rad)*Math.sin(angle_rad)))), 2);
+                const sqrt_term = Math.sqrt(c_factor.toNumber()/a_factor.toNumber() - Math.pow(Math.sin(angle_rad), 2.));
+                heavy_energy_lab = total_energy_big.times(a_factor).times(Math.pow(Math.cos(angle_rad) - sqrt_term, 2.));
     
-                heavy_angle_lab_energy_lab_data.push({x: angle_deg, y: heavy_energy_lab/heavy.mass_amu})
+                heavy_angle_lab_energy_lab_data.push({x: angle_deg, y: heavy_energy_lab.toNumber()/heavy.mass_amu.toNumber()})
             }
-    
         }
     }
 
