@@ -99,7 +99,7 @@ class Content extends React.Component {
                     Updates:
                 </div>
                 <div className="centered">
-                    v0.2 (2026/01/24) - Moved the React 19
+                    v0.2 (2026/01/24) - Moved to React 19
                 </div>
                 <div className="centered">
                     v0.1.1 (2020/08/17) - Table now shows only if reaction is valid
